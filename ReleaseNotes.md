@@ -1,14 +1,17 @@
 # Release Notes
 
-## 1.4.0
+## 2.0.0
 
+- Add support for `net462`, `net7.0` and `net8.0`
+- **[BREAKING CHANGE]** Drop support for `net461`, `netcoreapp3.1` and `net5.0`, all of which are EOL
 - Added `SourceLink` support to improve consumer debugging experience
-- Moved solution file to project root
-- Added recommended VS Code extensions to `extensions.json`
-- Added VS Code settings for formatting and file associations
+- Upgrade nuget packages to latest versions
 - Updated `.gitignore` using `dotnet new gitignore`
 - Added `.editorconfig` using `dotnet new editorconfig`
 - Added `global.json` with SDK version configuration
+- Moved solution file to project root
+- Added recommended VS Code extensions to `extensions.json`
+- Added VS Code settings for formatting and file associations
 - Added tool manifest using `dotnet new tool-manifest`
 - Added `dotnet-format` to tool manifest
 - Added ReSharper/Rider config
