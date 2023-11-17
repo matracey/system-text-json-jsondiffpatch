@@ -19,31 +19,63 @@ High-performance, low-allocating JSON object diff and patch extension for System
 
 ## Install
 
-#### JsonDiffPatch
+### JsonDiffPatch
 
-```
+Using the Package Manager Console:
+
+```powershell
 PM> Install-Package SystemTextJson.JsonDiffPatch
 ```
 
-#### xUnit Assert
+Using the dotnet CLI:
 
+```batch
+dotnet add package SystemTextJson.JsonDiffPatch
 ```
+
+### xUnit Assert
+
+Using the Package Manager Console:
+
+```powershell
 PM> Install-Package SystemTextJson.JsonDiffPatch.Xunit
 ```
 
-#### MSTest v2 Assert
+Using the dotnet CLI:
 
+```batch
+dotnet add package SystemTextJson.JsonDiffPatch.Xunit
 ```
+
+### MSTest v2 Assert
+
+Using the Package Manager Console:
+
+```powershell
 PM> Install-Package SystemTextJson.JsonDiffPatch.MSTest
 ```
 
-#### NUnit Assert
+Using the dotnet CLI:
 
+```batch
+dotnet add package SystemTextJson.JsonDiffPatch.MSTest
 ```
+
+### NUnit Assert
+
+Using the Package Manager Console:
+
+```powershell
 PM> Install-Package SystemTextJson.JsonDiffPatch.NUnit
 ```
 
-## Examples
+Using the dotnet CLI:
+
+```batch
+dotnet add package SystemTextJson.JsonDiffPatch.NUnit
+```
+
+## Usage
 
 ### Diff
 
@@ -119,6 +151,7 @@ JsonDiffPatcher.DefaultComparison = JsonElementComparison.Semantic;
 ```
 
 ### Semantic Value Comparison
+
 ```csharp
 var node1 = JsonNode.Parse("\"2019-11-27\"");
 var node2 = JsonNode.Parse("\"2019-11-27T00:00:00.000\"");
@@ -157,7 +190,8 @@ Assert.That(actual, JsonIs.NotEqualTo(expected));
 ```
 
 Example output _(when output is enabled)_:
-```
+
+```csharp
 JsonAssert.Equal() failure.
 Expected:
 {
