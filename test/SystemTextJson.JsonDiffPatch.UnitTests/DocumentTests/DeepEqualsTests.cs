@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.JsonDiffPatch;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests.DocumentTests

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.JsonDiffPatch.Nunit;
 using System.Text.Json.Nodes;
+
 using NUnit.Framework;
 
 namespace SystemTextJson.JsonDiffPatch.NUnit.Tests
@@ -30,10 +31,10 @@ namespace SystemTextJson.JsonDiffPatch.NUnit.Tests
         {
             JsonNode? json1 = null;
             JsonNode? json2 = null;
-        
+
             JsonAssert.AreEqual(json1, json2);
         }
-        
+
         [Test]
         public void AreEqual_FailWithMessage()
         {
@@ -79,16 +80,16 @@ namespace SystemTextJson.JsonDiffPatch.NUnit.Tests
         {
             var json1 = "{\"foo\":\"bar\",\"baz\":\"qux\"}";
             var json2 = "{\"foo\":\"baz\"}";
-        
+
             JsonAssert.AreNotEqual(json1, json2);
         }
-        
+
         [Test]
         public void AreNotEqual_JsonNode()
         {
             var json1 = JsonNode.Parse("{\"foo\":\"bar\",\"baz\":\"qux\"}");
             var json2 = JsonNode.Parse("{\"foo\":\"baz\"}");
-        
+
             JsonAssert.AreNotEqual(json1, json2);
         }
 
@@ -97,10 +98,10 @@ namespace SystemTextJson.JsonDiffPatch.NUnit.Tests
         {
             JsonNode? json1 = null;
             JsonNode? json2 = null;
-        
+
             var error = Assert.Throws<AssertionException>(
                 () => JsonAssert.AreNotEqual(json1, json2));
-        
+
             Assert.IsNotNull(error);
         }
 

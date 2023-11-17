@@ -2,6 +2,7 @@
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.JsonDiffPatch.Diffs.Formatters;
 using System.Text.Json.Nodes;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
@@ -9,7 +10,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
     public class JsonPatchDeltaFormatterTests
     {
         // Example test cases: https://datatracker.ietf.org/doc/html/rfc6902#appendix-A
-        
+
         [Fact]
         public void IdenticalObjects_EmptyPatch()
         {
@@ -20,7 +21,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Add_ObjectMember()
         {
@@ -31,7 +32,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[{\"op\":\"add\",\"path\":\"/baz\",\"value\":\"qux\"}]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Add_ArrayElement()
         {
@@ -42,7 +43,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[{\"op\":\"add\",\"path\":\"/foo/1\",\"value\":\"qux\"}]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Add_NestedObjectMember()
         {
@@ -53,7 +54,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[{\"op\":\"add\",\"path\":\"/child\",\"value\":{\"grandchild\":{}}}]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Add_NestedArrayElement()
         {
@@ -64,7 +65,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[{\"op\":\"add\",\"path\":\"/foo/1\",\"value\":[\"abc\",\"def\"]}]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Remove_ObjectMember()
         {
@@ -75,7 +76,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
 
             Assert.Equal("[{\"op\":\"remove\",\"path\":\"/baz\"}]", diff!.ToJsonString());
         }
-        
+
         [Fact]
         public void Remove_ArrayElement()
         {
@@ -150,7 +151,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.FormatterTests
                     TextDiffMinLength = 1
                 }));
         }
-        
+
         [Fact]
         public void JsonPointer_EscapeSpecialChar()
         {

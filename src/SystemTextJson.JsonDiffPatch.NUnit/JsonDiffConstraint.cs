@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+
 using NUnit.Framework.Constraints;
 
 namespace System.Text.Json.JsonDiffPatch.Nunit
@@ -11,7 +12,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         private readonly JsonNode? _expected;
         private JsonDiffOptions? _diffOptions;
         private Func<JsonNode, string>? _outputFormatter;
-        
+
         protected JsonDiffConstraint(JsonNode? expected)
         {
             _expected = expected;
@@ -25,7 +26,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
             _diffOptions = diffOptions ?? throw new ArgumentNullException(nameof(diffOptions));
             return this;
         }
-        
+
         public JsonDiffConstraint WithOutputFormatter(Func<JsonNode, string> outputFormatter)
         {
             _outputFormatter = outputFormatter ?? throw new ArgumentNullException(nameof(outputFormatter));
@@ -34,7 +35,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
 
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
-            Delta = _expected.Diff((JsonNode?) (object?) actual, _diffOptions);
+            Delta = _expected.Diff((JsonNode?)(object?)actual, _diffOptions);
             return new JsonDiffConstraintResult(this, actual, Test());
         }
 

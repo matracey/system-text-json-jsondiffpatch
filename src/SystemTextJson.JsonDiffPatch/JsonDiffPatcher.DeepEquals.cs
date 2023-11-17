@@ -124,13 +124,13 @@ namespace System.Text.Json.JsonDiffPatch
                     return elementComparison is JsonElementComparison.RawText
                         ? leftString.ValueEquals(ref rightString)
                         : leftString.Equals(ref rightString);
-                
+
                 case JsonValueKind.Object:
                     return ObjectEquals(left, right, elementComparison.Value);
 
                 case JsonValueKind.Array:
                     return ArrayEquals(left, right, elementComparison.Value);
-                
+
                 case JsonValueKind.True:
                 case JsonValueKind.False:
                 case JsonValueKind.Null:

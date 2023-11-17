@@ -19,7 +19,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
         Object,
         Text
     }
-    
+
     /// <summary>
     /// Implements JSON diff delta format described at <see href="https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md"/>.
     /// </summary>
@@ -97,7 +97,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
             CheckForKind(DeltaKind.Text);
             return Document!.AsArray()[0]!.GetValue<string>();
         }
-        
+
         public IEnumerable<ArrayChangeEntry> GetArrayChangeEnumerable()
         {
             CheckForKind(DeltaKind.Array);
@@ -120,7 +120,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
         internal IEnumerable<ArrayChangeEntry> GetPatchableArrayChangeEnumerable(JsonArray left, bool isReversing)
         {
             _ = left ?? throw new ArgumentNullException(nameof(left));
-            
+
             CheckForKind(DeltaKind.Array);
 
             var arrayPatch = Document!.AsObject();
@@ -271,7 +271,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
             arr[1] = newPosition;
             arr[2] = OpTypeArrayMoved;
         }
-        
+
         internal void ArrayMoveFromDeleted(int index, int newPosition)
         {
             if (Document is not JsonObject obj)
@@ -352,7 +352,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
                 if (Document is null)
                 {
                     Document = isArrayChange
-                        ? new JsonObject {{TypePropertyName, ArrayType}}
+                        ? new JsonObject { { TypePropertyName, ArrayType } }
                         : new JsonObject();
                     return;
                 }
@@ -474,7 +474,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
             delta.Deleted(oldValue);
             return delta;
         }
-        
+
         internal static bool TryGetArrayIndex(string propertyName, out int index, out bool isLeft)
         {
             isLeft = propertyName.StartsWith("_");
@@ -492,7 +492,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
         {
             return string.Equals(TypePropertyName, propertyName);
         }
-        
+
         public readonly struct ArrayChangeEntry
         {
             internal ArrayChangeEntry(int index, JsonNode diff)
@@ -500,13 +500,13 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
                 Index = index;
                 Diff = new JsonDiffDelta(diff);
             }
-            
+
             internal ArrayChangeEntry(int index, JsonDiffDelta diff)
             {
                 Index = index;
                 Diff = diff;
             }
-            
+
             public int Index { get; }
             public JsonDiffDelta Diff { get; }
         }

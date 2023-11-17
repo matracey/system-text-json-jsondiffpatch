@@ -10,7 +10,7 @@ namespace System.Text.Json.JsonDiffPatch
         // Keep as fields to avoid copy
         public JsonNumber NumberValue;
         public JsonString StringValue;
-        
+
         public JsonValueWrapper(JsonValue value)
         {
             Value = value;
@@ -30,7 +30,7 @@ namespace System.Text.Json.JsonDiffPatch
                 ValueKind = booleanValue ? JsonValueKind.True : JsonValueKind.False;
             }
         }
-        
+
         public JsonValueKind ValueKind { get; }
         public JsonValue Value { get; }
 
@@ -59,7 +59,7 @@ namespace System.Text.Json.JsonDiffPatch
             {
                 return true;
             }
-            
+
             if (ValueKind != another.ValueKind)
             {
                 return false;
@@ -106,7 +106,7 @@ namespace System.Text.Json.JsonDiffPatch
         {
             if (ValueKind != another.ValueKind)
             {
-                return -((int) ValueKind - (int) another.ValueKind);
+                return -((int)ValueKind - (int)another.ValueKind);
             }
 
             switch (ValueKind)
@@ -120,7 +120,7 @@ namespace System.Text.Json.JsonDiffPatch
                 case JsonValueKind.True:
                 case JsonValueKind.False:
                     return 0;
-                
+
                 case JsonValueKind.Null:
                 case JsonValueKind.Undefined:
                 case JsonValueKind.Object:

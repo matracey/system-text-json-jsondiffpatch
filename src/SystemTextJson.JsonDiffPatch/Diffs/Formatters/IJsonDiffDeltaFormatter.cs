@@ -15,4 +15,3 @@ namespace System.Text.Json.JsonDiffPatch.Diffs.Formatters
         TResult? Format(ref JsonDiffDelta delta, JsonNode? left);
     }
 }
-
