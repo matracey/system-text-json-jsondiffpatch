@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>System.Text.Json.JsonDiffPatch</RootNamespace>
-  </PropertyGroup>
+    <PropertyGroup>
+        <RootNamespace>System.Text.Json.JsonDiffPatch</RootNamespace>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>SystemTextJson.JsonDiffPatch</PackageId>
-    <PackageTags>json;diff;compare;patch;system-text-json;jsondiffpatch</PackageTags>
-    <Description>High-performance, low-allocating JSON object diff and patch extension for System.Text.Json. Support generating patch document in RFC 6902 JSON Patch format. Provides bonus DeepEquals and DeepClone methods.</Description>
-  </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>SystemTextJson.JsonDiffPatch</PackageId>
+        <PackageTags>json;diff;compare;patch;system-text-json;jsondiffpatch</PackageTags>
+        <Description>High-performance, low-allocating JSON object diff and patch extension for System.Text.Json. Support generating patch document in RFC 6902 JSON Patch format. Provides bonus DeepEquals and DeepClone methods.</Description>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Web" Condition="'$(TargetFramework)' == 'net461'" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="6.0.0" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+        <Reference Include="System.Web" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="JsonBytes.cs" />
-    <None Include="JsonBytes.cs" />
-  </ItemGroup>
-  
+    <ItemGroup>
+        <Compile Remove="JsonBytes.cs" />
+        <None Include="JsonBytes.cs" />
+    </ItemGroup>
+
 </Project>
