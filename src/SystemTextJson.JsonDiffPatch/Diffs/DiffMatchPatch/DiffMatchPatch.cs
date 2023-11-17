@@ -238,7 +238,7 @@ namespace DiffMatchPatch
         public short Patch_Margin = 4;
 
         // The number of bits in an int.
-        private short Match_MaxBits = 32;
+        private readonly short Match_MaxBits = 32;
 
 
         //  DIFF FUNCTIONS
@@ -1248,8 +1248,8 @@ namespace DiffMatchPatch
         }
 
         // Define some regex patterns for matching boundaries.
-        private Regex BLANKLINEEND = new Regex("\\n\\r?\\n\\Z");
-        private Regex BLANKLINESTART = new Regex("\\A\\r?\\n\\r?\\n");
+        private readonly Regex BLANKLINEEND = new Regex("\\n\\r?\\n\\Z");
+        private readonly Regex BLANKLINESTART = new Regex("\\A\\r?\\n\\r?\\n");
 
         /**
          * Reduce the number of edits by eliminating operationally trivial
