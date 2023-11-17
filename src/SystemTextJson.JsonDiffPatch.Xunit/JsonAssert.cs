@@ -204,7 +204,7 @@ namespace System.Text.Json.JsonDiffPatch.Xunit
         public static void ShouldEqual<T>(this T? actual, T? expected, JsonDiffOptions diffOptions)
             where T : JsonNode
             => Equal(expected, actual, diffOptions);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -268,7 +268,7 @@ namespace System.Text.Json.JsonDiffPatch.Xunit
         private static string CreateDefaultOutput(JsonNode? expected, JsonNode? actual, JsonNode diff)
         {
             var sb = new StringBuilder();
-            
+
             sb.Append("Expected:");
             sb.AppendLine();
             sb.Append(expected is null

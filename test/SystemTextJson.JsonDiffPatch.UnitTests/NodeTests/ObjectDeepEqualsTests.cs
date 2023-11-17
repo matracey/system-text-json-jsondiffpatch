@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
@@ -98,8 +99,8 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         [Fact]
         public void Array_Identical()
         {
-            var json1 = new JsonArray {1, 2, 3};
-            var json2 = new JsonArray {1, 2, 3};
+            var json1 = new JsonArray { 1, 2, 3 };
+            var json2 = new JsonArray { 1, 2, 3 };
 
             Assert.True(json1.DeepEquals(json2, default(JsonComparerOptions)));
         }
@@ -107,8 +108,8 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         [Fact]
         public void Array_ItemOrdering()
         {
-            var json1 = new JsonArray {1, 2, 3};
-            var json2 = new JsonArray {1, 3, 2};
+            var json1 = new JsonArray { 1, 2, 3 };
+            var json2 = new JsonArray { 1, 3, 2 };
 
             Assert.False(json1.DeepEquals(json2, default(JsonComparerOptions)));
         }
@@ -116,8 +117,8 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         [Fact]
         public void Array_ItemValue()
         {
-            var json1 = new JsonArray {1, 2, 3};
-            var json2 = new JsonArray {1, 2, 5};
+            var json1 = new JsonArray { 1, 2, 3 };
+            var json2 = new JsonArray { 1, 2, 5 };
 
             Assert.False(json1.DeepEquals(json2, default(JsonComparerOptions)));
         }
@@ -125,8 +126,8 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         [Fact]
         public void Array_MissingItem()
         {
-            var json1 = new JsonArray {1, 2, 3};
-            var json2 = new JsonArray {1, 2};
+            var json1 = new JsonArray { 1, 2, 3 };
+            var json2 = new JsonArray { 1, 2 };
 
             Assert.False(json1.DeepEquals(json2, default(JsonComparerOptions)));
         }
@@ -134,12 +135,12 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         [Fact]
         public void Array_ExtraItem()
         {
-            var json1 = new JsonArray {1, 2};
-            var json2 = new JsonArray {1, 2, 3};
+            var json1 = new JsonArray { 1, 2 };
+            var json2 = new JsonArray { 1, 2, 3 };
 
             Assert.False(json1.DeepEquals(json2, default(JsonComparerOptions)));
         }
-        
+
         [Theory]
         [MemberData(nameof(NodeTestData.ObjectSemanticEqual), MemberType = typeof(NodeTestData))]
         public void Value_ObjectSemanticEqual(JsonValue json1, JsonValue json2, bool expected)

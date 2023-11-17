@@ -150,7 +150,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
                 {
                     var matchContext = new ArrayItemMatchContext(x[i - 1], i - 1, y[j - 1], j - 1);
                     bool itemMatched;
-                    
+
                     if (x[i - 1] is JsonValue && y[j - 1] is JsonValue)
                     {
                         itemMatched = JsonDiffPatcher.MatchArrayValueItem(ref matchContext,

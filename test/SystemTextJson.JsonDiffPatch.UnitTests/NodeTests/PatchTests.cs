@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
@@ -65,7 +66,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         {
             var left = JsonNode.Parse("[1,2,3,4]");
             var diff = JsonNode.Parse("{\"_t\":\"a\",\"_0\":[\"\",5,3],\"_1\":[2,0,0],\"0\":[6],\"1\":[3,5],\"3\":[3],\"4\":[2]}");
-            var result = new JsonArray(6,5,4,3,2,1);
+            var result = new JsonArray(6, 5, 4, 3, 2, 1);
 
             JsonDiffPatcher.Patch(ref left, diff);
 

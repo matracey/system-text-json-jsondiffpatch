@@ -36,4 +36,3 @@ namespace System.Text.Json.JsonDiffPatch
         }
     }
 }
-

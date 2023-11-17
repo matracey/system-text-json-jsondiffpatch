@@ -12,7 +12,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         /// </summary>
         /// <param name="expected">The expected value.</param>
         public static JsonDiffConstraint EqualTo(JsonNode? expected) => new JsonEqualConstraint(expected);
-        
+
         /// <summary>
         /// Returns a constraint that tests whether two JSON are not equal.
         /// </summary>

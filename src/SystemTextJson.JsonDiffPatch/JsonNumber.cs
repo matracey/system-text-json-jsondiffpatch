@@ -203,7 +203,7 @@ namespace System.Text.Json.JsonDiffPatch
         private double GetDouble() => DoubleValue ?? (LongValue.HasValue
             ? Convert.ToDouble(LongValue.Value)
             : Convert.ToDouble(FloatValue!.Value));
-            
+
         public int CompareTo(ref JsonNumber another)
         {
             if (DecimalValue.HasValue || another.DecimalValue.HasValue)

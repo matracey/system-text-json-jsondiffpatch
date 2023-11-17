@@ -11,7 +11,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs.Formatters
         private const string PropertyNameOperation = "op";
         private const string PropertyNamePath = "path";
         private const string PropertyNameValue = "value";
-        
+
         private const string OperationNameAdd = "add";
         private const string OperationNameRemove = "remove";
         private const string OperationNameReplace = "replace";
@@ -36,7 +36,7 @@ namespace System.Text.Json.JsonDiffPatch.Diffs.Formatters
             return base.FormatArrayElement(arrayChange, left, existingValue);
         }
 
-        protected override JsonNode? FormatObjectProperty(ref JsonDiffDelta delta, JsonNode? left, 
+        protected override JsonNode? FormatObjectProperty(ref JsonDiffDelta delta, JsonNode? left,
             string propertyName, JsonNode? existingValue)
         {
             using var _ = new PropertyPathScope(PathBuilder, propertyName);

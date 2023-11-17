@@ -13,7 +13,7 @@
 
             var tolerance = (Math.Abs(x) + Math.Abs(y) + 10.0) * epsilon;
             var difference = x - y;
-            
+
             if (-tolerance < difference)
                 return tolerance > difference;
 
@@ -26,4 +26,3 @@
         }
     }
 }
-

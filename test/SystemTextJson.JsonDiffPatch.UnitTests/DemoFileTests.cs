@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.JsonDiffPatch.Diffs.Formatters;
 using System.Text.Json.Nodes;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -65,7 +66,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests
         [Fact]
         public void Roundtrip_DemoFile()
         {
-            var diffOptions = new JsonDiffOptions {TextDiffMinLength = 60};
+            var diffOptions = new JsonDiffOptions { TextDiffMinLength = 60 };
             var left = JsonNode.Parse(File.ReadAllText(@"Examples/demo_left.json"));
             var originalLeft = JsonNode.Parse(File.ReadAllText(@"Examples/demo_left.json"));
             var right = JsonNode.Parse(File.ReadAllText(@"Examples/demo_right.json"));
