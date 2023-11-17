@@ -21,12 +21,7 @@ namespace System.Text.Json.JsonDiffPatch
                 var patches = alg.patch_fromText(patchText);
                 var results = alg.patch_apply(patches, text);
 
-                if (((bool[])results[1]).Any(flag => !flag))
-                {
-                    throw new InvalidOperationException(TextPatchFailed);
-                }
-
-                return (string)results[0];
+                return ((bool[])results[1]).Any(flag => !flag) ? throw new InvalidOperationException(TextPatchFailed) : (string)results[0];
             }
         }
 
@@ -56,12 +51,7 @@ namespace System.Text.Json.JsonDiffPatch
 
                 var results = alg.patch_apply(reversedPatches, text);
 
-                if (((bool[])results[1]).Any(flag => !flag))
-                {
-                    throw new InvalidOperationException(TextPatchFailed);
-                }
-
-                return (string)results[0];
+                return ((bool[])results[1]).Any(flag => !flag) ? throw new InvalidOperationException(TextPatchFailed) : (string)results[0];
             }
         }
     }

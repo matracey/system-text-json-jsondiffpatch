@@ -208,12 +208,7 @@ namespace System.Text.Json.JsonDiffPatch
                 return formatter.Format(ref delta, left);
             }
 
-            if (delta.Document is TResult result)
-            {
-                return result;
-            }
-
-            return (TResult?)(object?)delta.Document;
+            return delta.Document is TResult result ? result : (TResult?)(object?)delta.Document;
         }
 
         private static void DiffInternal(

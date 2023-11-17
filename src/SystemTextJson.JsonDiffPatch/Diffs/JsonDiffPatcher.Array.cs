@@ -214,12 +214,7 @@ namespace System.Text.Json.JsonDiffPatch
                 }
             }
 
-            if (options?.ArrayItemMatcher is not null)
-            {
-                return options.ArrayItemMatcher(ref context);
-            }
-
-            return false;
+            return options?.ArrayItemMatcher is not null ? options.ArrayItemMatcher(ref context) : false;
         }
 
         internal static bool MatchArrayValueItem(
@@ -235,12 +230,7 @@ namespace System.Text.Json.JsonDiffPatch
                 return true;
             }
 
-            if (options?.ArrayItemMatcher is not null)
-            {
-                return options.ArrayItemMatcher(ref context);
-            }
-
-            return false;
+            return options?.ArrayItemMatcher is not null ? options.ArrayItemMatcher(ref context) : false;
         }
 
         private static bool FallbackMatchArrayItem(ref ArrayItemMatchContext context, JsonDiffOptions options,

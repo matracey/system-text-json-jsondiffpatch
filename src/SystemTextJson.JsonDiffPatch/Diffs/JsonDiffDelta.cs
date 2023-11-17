@@ -428,25 +428,19 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
 
             static DeltaKind GetDeltaKindFromJsonObject(JsonObject obj)
             {
-                if (obj.TryGetPropertyValue(TypePropertyName, out var typeParam) &&
+                return obj.TryGetPropertyValue(TypePropertyName, out var typeParam) &&
                     typeParam is JsonValue typeParamValue &&
                     typeParamValue.TryGetValue<string>(out var typeParamValueStr) &&
-                    string.Equals(ArrayType, typeParamValueStr, StringComparison.Ordinal))
-                {
-                    return DeltaKind.Array;
-                }
-
-                return DeltaKind.Object;
+                    string.Equals(ArrayType, typeParamValueStr, StringComparison.Ordinal)
+                    ? DeltaKind.Array
+                    : DeltaKind.Object;
             }
 
             static DeltaKind GetDeltaKindFromOpType(JsonValue opType)
             {
-                if (!opType.TryGetValue<int>(out var opTypeValue))
-                {
-                    return DeltaKind.None;
-                }
-
-                return opTypeValue switch
+                return !opType.TryGetValue<int>(out var opTypeValue)
+                    ? DeltaKind.None
+                    : opTypeValue switch
                 {
                     OpTypeDeleted => DeltaKind.Deleted,
                     OpTypeArrayMoved => DeltaKind.ArrayMove,
