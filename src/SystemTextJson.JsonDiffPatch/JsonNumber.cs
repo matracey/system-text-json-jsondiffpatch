@@ -211,24 +211,16 @@ namespace System.Text.Json.JsonDiffPatch
                 return GetDecimal().CompareTo(another.GetDecimal());
             }
 
-            if (DoubleValue.HasValue || FloatValue.HasValue ||
-                another.DoubleValue.HasValue || another.FloatValue.HasValue)
-            {
-                return JsonValueComparer.CompareDouble(GetDouble(), another.GetDouble());
-            }
-
-            return LongValue!.Value.CompareTo(another.LongValue!.Value);
+            return DoubleValue.HasValue || FloatValue.HasValue ||
+                another.DoubleValue.HasValue || another.FloatValue.HasValue
+                ? JsonValueComparer.CompareDouble(GetDouble(), another.GetDouble())
+                : LongValue!.Value.CompareTo(another.LongValue!.Value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool RawTextEquals(ref JsonNumber another)
         {
-            if (!HasElement || HasElement != another.HasElement)
-            {
-                return false;
-            }
-
-            return string.Equals(Element.GetRawText(), another.Element.GetRawText());
+            return !HasElement || HasElement != another.HasElement ? false : string.Equals(Element.GetRawText(), another.Element.GetRawText());
         }
 
         public static bool TryGetJsonNumber(JsonValue jsonValue, out JsonNumber result)

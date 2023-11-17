@@ -35,13 +35,10 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests
                     // https://github.com/benjamine/jsondiffpatch/blob/a8cde4c666a8a25d09d8f216c7f19397f2e1b569/docs/demo/demo.js#L163
                     ArrayObjectItemKeyFinder = (n, i) =>
                     {
-                        if (n is JsonObject obj
-                            && obj.TryGetPropertyValue("name", out var value))
-                        {
-                            return value?.GetValue<string>() ?? "";
-                        }
-
-                        return null;
+                        return n is JsonObject obj
+                            && obj.TryGetPropertyValue("name", out var value)
+                            ? value?.GetValue<string>() ?? ""
+                            : (object?)null;
                     }
                 });
             sw.Stop();

@@ -22,12 +22,9 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
         /// <typeparam name="T">The type of left value.</typeparam>
         public T Left<T>()
         {
-            if (_leftNode is T leftValue)
-            {
-                return leftValue;
-            }
-
-            throw new InvalidOperationException($"Type must be '{nameof(JsonNode)}' or derived type.");
+            return _leftNode is T leftValue
+                ? leftValue
+                : throw new InvalidOperationException($"Type must be '{nameof(JsonNode)}' or derived type.");
         }
 
         /// <summary>
@@ -36,12 +33,9 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
         /// <typeparam name="T">The type of right value.</typeparam>
         public T Right<T>()
         {
-            if (_rightNode is T rightValue)
-            {
-                return rightValue;
-            }
-
-            throw new InvalidOperationException($"Type must be '{nameof(JsonNode)}' or derived type.");
+            return _rightNode is T rightValue
+                ? rightValue
+                : throw new InvalidOperationException($"Type must be '{nameof(JsonNode)}' or derived type.");
         }
     }
 }

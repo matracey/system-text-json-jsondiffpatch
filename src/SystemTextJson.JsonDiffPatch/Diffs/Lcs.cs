@@ -149,21 +149,13 @@ namespace System.Text.Json.JsonDiffPatch.Diffs
                 for (var j = 1; j < n; j++)
                 {
                     var matchContext = new ArrayItemMatchContext(x[i - 1], i - 1, y[j - 1], j - 1);
-                    bool itemMatched;
-
-                    if (x[i - 1] is JsonValue && y[j - 1] is JsonValue)
-                    {
-                        itemMatched = JsonDiffPatcher.MatchArrayValueItem(ref matchContext,
+                    bool itemMatched = x[i - 1] is JsonValue && y[j - 1] is JsonValue
+                        ? JsonDiffPatcher.MatchArrayValueItem(ref matchContext,
                             ref wrapperCacheSpan[i - 1],
                             ref wrapperCacheSpan[x.Length + j - 1],
                             options,
-                            comparerOptions);
-                    }
-                    else
-                    {
-                        itemMatched = JsonDiffPatcher.MatchArrayItem(ref matchContext, options, comparerOptions);
-                    }
-
+                            comparerOptions)
+                        : JsonDiffPatcher.MatchArrayItem(ref matchContext, options, comparerOptions);
                     if (itemMatched)
                     {
                         matrix[i * n + j] = 1 + matrix[(i - 1) * n + (j - 1)];
