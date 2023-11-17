@@ -1,14 +1,14 @@
 ﻿<Project>
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0;net7.0;net6.0;net48</TargetFrameworks>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net7.0;net6.0;net48</TargetFrameworks>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <IsPackable>false</IsPackable>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
 
 </Project>
