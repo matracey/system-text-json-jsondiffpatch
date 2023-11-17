@@ -1,5 +1,21 @@
 # Release Notes
 
+## 1.4.0
+
+- Added `SourceLink` support to improve consumer debugging experience
+- Moved solution file to project root
+- Added recommended VS Code extensions to `extensions.json`
+- Added VS Code settings for formatting and file associations
+- Updated `.gitignore` using `dotnet new gitignore`
+- Added `.editorconfig` using `dotnet new editorconfig`
+- Added `global.json` with SDK version configuration
+- Added tool manifest using `dotnet new tool-manifest`
+- Added `dotnet-format` to tool manifest
+- Added ReSharper/Rider config
+- Formatted `README.md`, `Benchmark.md`, `ReleaseNotes.md`, `Directory.Build.props` files, `csproj` files, and `test/Examples` json files
+- Ran `dotnet format` for error, warn, and info severity
+- Moved test `TargetFrameworks` to `Directory.Build.props` for test folder
+
 ## 1.3.1
 
 - Added `PropertyFilter` to `JsonDiffOptions` (#29)

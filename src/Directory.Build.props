@@ -12,7 +12,7 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <JsonDiffPatchPackageVersion>1.3.1</JsonDiffPatchPackageVersion>
+        <JsonDiffPatchPackageVersion>1.4.0</JsonDiffPatchPackageVersion>
         <Authors>Wei Chen</Authors>
         <PackageProjectUrl>https://github.com/weichch/system-text-json-jsondiffpatch</PackageProjectUrl>
         <RepositoryUrl>https://github.com/weichch/system-text-json-jsondiffpatch.git</RepositoryUrl>
