@@ -4,34 +4,18 @@
     0,
     2
   ],
-  "surface": [
-    17840000,
-    0,
-    0
-  ],
+  "surface": [17840000, 0, 0],
   "demographics": {
-    "population": [
-      385742554,
-      385744896
-    ]
+    "population": [385742554, 385744896]
   },
   "languages": {
-    "2": [
-      "inglés"
-    ],
+    "2": ["inglés"],
     "_t": "a",
-    "_2": [
-      "english",
-      0,
-      0
-    ]
+    "_2": ["english", 0, 0]
   },
   "countries": {
     "0": {
-      "capital": [
-        "Buenos Aires",
-        "Rawson"
-      ]
+      "capital": ["Buenos Aires", "Rawson"]
     },
     "9": [
       {
@@ -40,21 +24,11 @@
       }
     ],
     "10": {
-      "population": [
-        42888594
-      ]
+      "population": [42888594]
     },
     "_t": "a",
-    "_4": [
-      "",
-      10,
-      3
-    ],
-    "_8": [
-      "",
-      2,
-      3
-    ],
+    "_4": ["", 10, 3],
+    "_8": ["", 2, 3],
     "_10": [
       {
         "name": "Uruguay",
@@ -76,7 +50,5 @@
       0
     ]
   },
-  "spanishName": [
-    "Sudamérica"
-  ]
+  "spanishName": ["Sudamérica"]
 }
