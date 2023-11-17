@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>System.Text.Json.JsonDiffPatch.Nunit</RootNamespace>
-  </PropertyGroup>
+    <PropertyGroup>
+        <RootNamespace>System.Text.Json.JsonDiffPatch.Nunit</RootNamespace>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>SystemTextJson.JsonDiffPatch.NUnit</PackageId>
-    <PackageTags>nunit;assert;compare;json;system-text-json</PackageTags>
-    <Description>Extension methods for NUnit to compare JSON in unit tests.</Description>
-  </PropertyGroup>
+    <PropertyGroup>
+        <PackageId>SystemTextJson.JsonDiffPatch.NUnit</PackageId>
+        <PackageTags>nunit;assert;compare;json;system-text-json</PackageTags>
+        <Description>Extension methods for NUnit to compare JSON in unit tests.</Description>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SystemTextJson.JsonDiffPatch\SystemTextJson.JsonDiffPatch.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SystemTextJson.JsonDiffPatch\SystemTextJson.JsonDiffPatch.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="NUnit" Version="3.14.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="NUnit" Version="3.14.0" />
+    </ItemGroup>
 
 </Project>
