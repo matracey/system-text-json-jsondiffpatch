@@ -32,7 +32,7 @@ namespace System.Text.Json.JsonDiffPatch
             JsonDiffOptions? options = default)
         {
             _ = formatter ?? throw new ArgumentNullException(nameof(formatter));
-            
+
             return DiffAndFormat(JsonNode.Parse(leftJson), JsonNode.Parse(rightJson), formatter, options);
         }
 
@@ -50,7 +50,7 @@ namespace System.Text.Json.JsonDiffPatch
 
             return DiffAndFormat<JsonNode>(JsonNode.Parse(leftJson), JsonNode.Parse(rightJson), null, options);
         }
-        
+
         /// <summary>
         /// Compares two JSON objects and generates a diff document.
         /// </summary>
@@ -80,7 +80,7 @@ namespace System.Text.Json.JsonDiffPatch
         {
             return DiffAndFormat<JsonNode>(JsonNode.Parse(ref leftJson), JsonNode.Parse(ref rightJson), null, options);
         }
-        
+
         /// <summary>
         /// Compares two JSON objects and generates a diff document.
         /// </summary>
@@ -93,7 +93,7 @@ namespace System.Text.Json.JsonDiffPatch
             JsonDiffOptions? options = default)
         {
             _ = formatter ?? throw new ArgumentNullException(nameof(formatter));
-            
+
             return DiffAndFormat(JsonNode.Parse(ref leftJson), JsonNode.Parse(ref rightJson), formatter, options);
         }
 
@@ -109,7 +109,7 @@ namespace System.Text.Json.JsonDiffPatch
             return DiffAndFormat<JsonNode>(leftJson is null ? null : JsonNode.Parse(leftJson),
                 rightJson is null ? null : JsonNode.Parse(rightJson), null, options);
         }
-        
+
         /// <summary>
         /// Compares two JSON objects and generates a diff document.
         /// </summary>
@@ -122,7 +122,7 @@ namespace System.Text.Json.JsonDiffPatch
             JsonDiffOptions? options = default)
         {
             _ = formatter ?? throw new ArgumentNullException(nameof(formatter));
-            
+
             return DiffAndFormat(leftJson is null ? null : JsonNode.Parse(leftJson),
                 rightJson is null ? null : JsonNode.Parse(rightJson), formatter, options);
         }
@@ -150,7 +150,7 @@ namespace System.Text.Json.JsonDiffPatch
             JsonDiffOptions? options = default)
         {
             _ = formatter ?? throw new ArgumentNullException(nameof(formatter));
-            
+
             return DiffAndFormat(left, right, formatter, options);
         }
 
@@ -171,7 +171,7 @@ namespace System.Text.Json.JsonDiffPatch
 
             return Diff(fsLeft, fsRight, options);
         }
-        
+
         /// <summary>
         /// Compares two JSON objects from files and generates a diff document.
         /// </summary>
@@ -208,12 +208,7 @@ namespace System.Text.Json.JsonDiffPatch
                 return formatter.Format(ref delta, left);
             }
 
-            if (delta.Document is TResult result)
-            {
-                return result;
-            }
-
-            return (TResult?) (object?) delta.Document;
+            return delta.Document is TResult result ? result : (TResult?)(object?)delta.Document;
         }
 
         private static void DiffInternal(

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.JsonDiffPatch.Xunit;
 using System.Text.Json.Nodes;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.Xunit.Tests
@@ -14,7 +15,7 @@ namespace SystemTextJson.JsonDiffPatch.Xunit.Tests
 
             JsonAssert.Equal(json1, json2);
         }
-        
+
         [Fact]
         public void Equal_JsonNode()
         {
@@ -41,7 +42,7 @@ namespace SystemTextJson.JsonDiffPatch.Xunit.Tests
 
             JsonAssert.Equal(json1, json2);
         }
-        
+
         [Fact]
         public void Equal_FailWithMessage()
         {
@@ -91,7 +92,7 @@ namespace SystemTextJson.JsonDiffPatch.Xunit.Tests
 
             JsonAssert.NotEqual(json1, json2);
         }
-        
+
         [Fact]
         public void NotEqual_JsonNode()
         {

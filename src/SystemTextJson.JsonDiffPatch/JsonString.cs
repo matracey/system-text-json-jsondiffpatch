@@ -335,12 +335,7 @@ namespace System.Text.Json.JsonDiffPatch
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool ValueEquals(ref JsonString another)
         {
-            if (!HasElement || HasElement != another.HasElement)
-            {
-                return false;
-            }
-
-            return Element.ValueEquals(another.Element.GetString());
+            return !HasElement || HasElement != another.HasElement ? false : Element.ValueEquals(another.Element.GetString());
         }
 
         public static bool TryGetJsonString(JsonValue jsonValue, out JsonString result)

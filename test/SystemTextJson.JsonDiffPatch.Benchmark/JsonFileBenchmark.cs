@@ -1,4 +1,5 @@
 ﻿using System.IO;
+
 using BenchmarkDotNet.Attributes;
 
 namespace SystemTextJson.JsonDiffPatch.Benchmark

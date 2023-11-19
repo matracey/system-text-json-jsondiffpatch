@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.JsonDiffPatch.MsTest;
 using System.Text.Json.Nodes;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SystemTextJson.JsonDiffPatch.MsTest.Tests
@@ -15,7 +16,7 @@ namespace SystemTextJson.JsonDiffPatch.MsTest.Tests
 
             JsonAssert.AreEqual(json1, json2);
         }
-        
+
         [TestMethod]
         public void AreEqual_JsonNode()
         {
@@ -42,7 +43,7 @@ namespace SystemTextJson.JsonDiffPatch.MsTest.Tests
 
             JsonAssert.AreEqual(json1, json2);
         }
-        
+
         [TestMethod]
         public void AreEqual_FailWithMessage()
         {
@@ -69,7 +70,7 @@ namespace SystemTextJson.JsonDiffPatch.MsTest.Tests
             StringAssert.Contains(error.Message, "Actual:");
             StringAssert.Contains(error.Message, "Delta:");
         }
-        
+
         [TestMethod]
         public void AreEqual_FailWithCustomOutput()
         {
@@ -91,7 +92,7 @@ namespace SystemTextJson.JsonDiffPatch.MsTest.Tests
 
             JsonAssert.AreNotEqual(json1, json2);
         }
-        
+
         [TestMethod]
         public void AreNotEqual_JsonNode()
         {

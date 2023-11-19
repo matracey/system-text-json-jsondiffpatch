@@ -111,8 +111,7 @@ namespace DiffMatchPatch
             }
 
             // If parameter cannot be cast to Diff return false.
-            Diff p = obj as Diff;
-            if ((System.Object)p == null)
+            if (obj is not Diff p)
             {
                 return false;
             }
@@ -145,7 +144,7 @@ namespace DiffMatchPatch
      */
     internal class Patch
     {
-        public List<Diff> diffs = new List<Diff>();
+        public List<Diff> diffs = new();
         public int start1;
         public int start2;
         public int length1;
@@ -164,27 +163,19 @@ namespace DiffMatchPatch
             {
                 coords1 = this.start1 + ",0";
             }
-            else if (this.length1 == 1)
-            {
-                coords1 = Convert.ToString(this.start1 + 1);
-            }
             else
             {
-                coords1 = (this.start1 + 1) + "," + this.length1;
+                coords1 = this.length1 == 1 ? Convert.ToString(this.start1 + 1) : (this.start1 + 1) + "," + this.length1;
             }
             if (this.length2 == 0)
             {
                 coords2 = this.start2 + ",0";
             }
-            else if (this.length2 == 1)
-            {
-                coords2 = Convert.ToString(this.start2 + 1);
-            }
             else
             {
-                coords2 = (this.start2 + 1) + "," + this.length2;
+                coords2 = this.length2 == 1 ? Convert.ToString(this.start2 + 1) : (this.start2 + 1) + "," + this.length2;
             }
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             text.Append("@@ -").Append(coords1).Append(" +").Append(coords2)
                 .Append(" @@\n");
             // Escape the body of the patch with %xx notation.
@@ -238,7 +229,7 @@ namespace DiffMatchPatch
         public short Patch_Margin = 4;
 
         // The number of bits in an int.
-        private short Match_MaxBits = 32;
+        private readonly short Match_MaxBits = 32;
 
 
         //  DIFF FUNCTIONS
@@ -270,16 +261,10 @@ namespace DiffMatchPatch
         public List<Diff> diff_main(string text1, string text2, bool checklines)
         {
             // Set a deadline by which time the diff must be complete.
-            DateTime deadline;
-            if (this.Diff_Timeout <= 0)
-            {
-                deadline = DateTime.MaxValue;
-            }
-            else
-            {
-                deadline = DateTime.Now +
+            DateTime deadline = this.Diff_Timeout <= 0
+                ? DateTime.MaxValue
+                : DateTime.Now +
                     new TimeSpan(((long)(Diff_Timeout * 1000)) * 10000);
-            }
             return diff_main(text1, text2, checklines, deadline);
         }
 
@@ -356,7 +341,7 @@ namespace DiffMatchPatch
         private List<Diff> diff_compute(string text1, string text2,
                                         bool checklines, DateTime deadline)
         {
-            List<Diff> diffs = new List<Diff>();
+            List<Diff> diffs = new();
 
             if (text1.Length == 0)
             {
@@ -415,12 +400,9 @@ namespace DiffMatchPatch
                 return diffs;
             }
 
-            if (checklines && text1.Length > 100 && text2.Length > 100)
-            {
-                return diff_lineMode(text1, text2, deadline);
-            }
-
-            return diff_bisect(text1, text2, deadline);
+            return checklines && text1.Length > 100 && text2.Length > 100
+                ? diff_lineMode(text1, text2, deadline)
+                : diff_bisect(text1, text2, deadline);
         }
 
         /**
@@ -479,7 +461,7 @@ namespace DiffMatchPatch
                             List<Diff> subDiff =
                                 this.diff_main(text_delete, text_insert, false, deadline);
                             diffs.InsertRange(pointer, subDiff);
-                            pointer = pointer + subDiff.Count;
+                            pointer += subDiff.Count;
                         }
                         count_insert = 0;
                         count_delete = 0;
@@ -543,15 +525,7 @@ namespace DiffMatchPatch
                 for (int k1 = -d + k1start; k1 <= d - k1end; k1 += 2)
                 {
                     int k1_offset = v_offset + k1;
-                    int x1;
-                    if (k1 == -d || k1 != d && v1[k1_offset - 1] < v1[k1_offset + 1])
-                    {
-                        x1 = v1[k1_offset + 1];
-                    }
-                    else
-                    {
-                        x1 = v1[k1_offset - 1] + 1;
-                    }
+                    int x1 = k1 == -d || k1 != d && v1[k1_offset - 1] < v1[k1_offset + 1] ? v1[k1_offset + 1] : v1[k1_offset - 1] + 1;
                     int y1 = x1 - k1;
                     while (x1 < text1_length && y1 < text2_length
                           && text1[x1] == text2[y1])
@@ -590,15 +564,7 @@ namespace DiffMatchPatch
                 for (int k2 = -d + k2start; k2 <= d - k2end; k2 += 2)
                 {
                     int k2_offset = v_offset + k2;
-                    int x2;
-                    if (k2 == -d || k2 != d && v2[k2_offset - 1] < v2[k2_offset + 1])
-                    {
-                        x2 = v2[k2_offset + 1];
-                    }
-                    else
-                    {
-                        x2 = v2[k2_offset - 1] + 1;
-                    }
+                    int x2 = k2 == -d || k2 != d && v2[k2_offset - 1] < v2[k2_offset + 1] ? v2[k2_offset + 1] : v2[k2_offset - 1] + 1;
                     int y2 = x2 - k2;
                     while (x2 < text1_length && y2 < text2_length
                         && text1[text1_length - x2 - 1]
@@ -638,9 +604,11 @@ namespace DiffMatchPatch
             }
             // Diff took too long and hit the deadline or
             // number of diffs equals number of characters, no commonality at all.
-            List<Diff> diffs = new List<Diff>();
-            diffs.Add(new Diff(Operation.DELETE, text1));
-            diffs.Add(new Diff(Operation.INSERT, text2));
+            List<Diff> diffs = new()
+            {
+                new Diff(Operation.DELETE, text1),
+                new Diff(Operation.INSERT, text2)
+            };
             return diffs;
         }
 
@@ -681,8 +649,8 @@ namespace DiffMatchPatch
          */
         protected Object[] diff_linesToChars(string text1, string text2)
         {
-            List<string> lineArray = new List<string>();
-            Dictionary<string, int> lineHash = new Dictionary<string, int>();
+            List<string> lineArray = new();
+            Dictionary<string, int> lineHash = new();
             // e.g. linearray[4] == "Hello\n"
             // e.g. linehash.get("Hello\n") == 4
 
@@ -711,7 +679,7 @@ namespace DiffMatchPatch
             int lineStart = 0;
             int lineEnd = -1;
             string line;
-            StringBuilder chars = new StringBuilder();
+            StringBuilder chars = new();
             // Walk the text, pulling out a Substring for each line.
             // text.split('\n') would would temporarily double our memory footprint.
             // Modifying text would create many large strings to garbage collect.
@@ -915,15 +883,7 @@ namespace DiffMatchPatch
             }
 
             // A half-match was found, sort out the return data.
-            if (text1.Length > text2.Length)
-            {
-                return hm;
-                //return new string[]{hm[0], hm[1], hm[2], hm[3], hm[4]};
-            }
-            else
-            {
-                return new string[] { hm[2], hm[3], hm[0], hm[1], hm[4] };
-            }
+            return text1.Length > text2.Length ? hm : (new string[] { hm[2], hm[3], hm[0], hm[1], hm[4] });
         }
 
         /**
@@ -961,15 +921,10 @@ namespace DiffMatchPatch
                     best_shorttext_b = shorttext.Substring(j + prefixLength);
                 }
             }
-            if (best_common.Length * 2 >= longtext.Length)
-            {
-                return new string[]{best_longtext_a, best_longtext_b,
-            best_shorttext_a, best_shorttext_b, best_common};
-            }
-            else
-            {
-                return null;
-            }
+            return best_common.Length * 2 >= longtext.Length
+                ? (new string[]{best_longtext_a, best_longtext_b,
+            best_shorttext_a, best_shorttext_b, best_common})
+                : null;
         }
 
         /**
@@ -981,7 +936,7 @@ namespace DiffMatchPatch
         {
             bool changes = false;
             // Stack of indices where equalities are found.
-            Stack<int> equalities = new Stack<int>();
+            Stack<int> equalities = new();
             // Always equal to equalities[equalitiesLength-1][1]
             string lastEquality = null;
             int pointer = 0;  // Index of current position.
@@ -1248,8 +1203,8 @@ namespace DiffMatchPatch
         }
 
         // Define some regex patterns for matching boundaries.
-        private Regex BLANKLINEEND = new Regex("\\n\\r?\\n\\Z");
-        private Regex BLANKLINESTART = new Regex("\\A\\r?\\n\\r?\\n");
+        private readonly Regex BLANKLINEEND = new("\\n\\r?\\n\\Z");
+        private readonly Regex BLANKLINESTART = new("\\A\\r?\\n\\r?\\n");
 
         /**
          * Reduce the number of edits by eliminating operationally trivial
@@ -1260,7 +1215,7 @@ namespace DiffMatchPatch
         {
             bool changes = false;
             // Stack of indices where equalities are found.
-            Stack<int> equalities = new Stack<int>();
+            Stack<int> equalities = new();
             // Always equal to equalities[equalitiesLength-1][1]
             string lastEquality = string.Empty;
             int pointer = 0;  // Index of current position.
@@ -1556,7 +1511,7 @@ namespace DiffMatchPatch
          */
         public string diff_prettyHtml(List<Diff> diffs)
         {
-            StringBuilder html = new StringBuilder();
+            StringBuilder html = new();
             foreach (Diff aDiff in diffs)
             {
                 string text = aDiff.text.Replace("&", "&amp;").Replace("<", "&lt;")
@@ -1586,7 +1541,7 @@ namespace DiffMatchPatch
          */
         public string diff_text1(List<Diff> diffs)
         {
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             foreach (Diff aDiff in diffs)
             {
                 if (aDiff.operation != Operation.INSERT)
@@ -1604,7 +1559,7 @@ namespace DiffMatchPatch
          */
         public string diff_text2(List<Diff> diffs)
         {
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             foreach (Diff aDiff in diffs)
             {
                 if (aDiff.operation != Operation.DELETE)
@@ -1659,7 +1614,7 @@ namespace DiffMatchPatch
          */
         public string diff_toDelta(List<Diff> diffs)
         {
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             foreach (Diff aDiff in diffs)
             {
                 switch (aDiff.operation)
@@ -1694,7 +1649,7 @@ namespace DiffMatchPatch
          */
         public List<Diff> diff_fromDelta(string text1, string delta)
         {
-            List<Diff> diffs = new List<Diff>();
+            List<Diff> diffs = new();
             int pointer = 0;  // Cursor in text1
             string[] tokens = delta.Split(new string[] { "\t" },
                 StringSplitOptions.None);
@@ -1770,12 +1725,10 @@ namespace DiffMatchPatch
                             "Invalid diff operation in diff_fromDelta: " + token[0]);
                 }
             }
-            if (pointer != text1.Length)
-            {
-                throw new ArgumentException("Delta length (" + pointer
-                    + ") smaller than source text length (" + text1.Length + ").");
-            }
-            return diffs;
+            return pointer != text1.Length
+                ? throw new ArgumentException("Delta length (" + pointer
+                    + ") smaller than source text length (" + text1.Length + ").")
+                : diffs;
         }
 
 
@@ -1971,7 +1924,7 @@ namespace DiffMatchPatch
          */
         protected Dictionary<char, int> match_alphabet(string pattern)
         {
-            Dictionary<char, int> s = new Dictionary<char, int>();
+            Dictionary<char, int> s = new();
             char[] char_pattern = pattern.ToCharArray();
             foreach (char c in char_pattern)
             {
@@ -2104,12 +2057,12 @@ namespace DiffMatchPatch
         public List<Patch> patch_make(string text1, List<Diff> diffs)
         {
             // Check for null inputs not needed since null can't be passed in C#.
-            List<Patch> patches = new List<Patch>();
+            List<Patch> patches = new();
             if (diffs.Count == 0)
             {
                 return patches;  // Get rid of the null case.
             }
-            Patch patch = new Patch();
+            Patch patch = new();
             int char_count1 = 0;  // Number of characters into the text1 string.
             int char_count2 = 0;  // Number of characters into the text2 string.
                                   // Start with text1 (prepatch_text) and apply the diffs until we arrive at
@@ -2195,13 +2148,13 @@ namespace DiffMatchPatch
          */
         public List<Patch> patch_deepCopy(List<Patch> patches)
         {
-            List<Patch> patchesCopy = new List<Patch>();
+            List<Patch> patchesCopy = new();
             foreach (Patch aPatch in patches)
             {
-                Patch patchCopy = new Patch();
+                Patch patchCopy = new();
                 foreach (Diff aDiff in aPatch.diffs)
                 {
-                    Diff diffCopy = new Diff(aDiff.operation, aDiff.text);
+                    Diff diffCopy = new(aDiff.operation, aDiff.text);
                     patchCopy.diffs.Add(diffCopy);
                 }
                 patchCopy.start1 = aPatch.start1;
@@ -2282,17 +2235,11 @@ namespace DiffMatchPatch
                     // Found a match.  :)
                     results[x] = true;
                     delta = start_loc - expected_loc;
-                    string text2;
-                    if (end_loc == -1)
-                    {
-                        text2 = text.JavaSubstring(start_loc,
-                            Math.Min(start_loc + text1.Length, text.Length));
-                    }
-                    else
-                    {
-                        text2 = text.JavaSubstring(start_loc,
+                    string text2 = end_loc == -1
+                        ? text.JavaSubstring(start_loc,
+                            Math.Min(start_loc + text1.Length, text.Length))
+                        : text.JavaSubstring(start_loc,
                             Math.Min(end_loc + this.Match_MaxBits, text.Length));
-                    }
                     if (text1 == text2)
                     {
                         // Perfect match, just shove the Replacement text in.
@@ -2442,7 +2389,7 @@ namespace DiffMatchPatch
                 while (bigpatch.diffs.Count != 0)
                 {
                     // Create one of several smaller patches.
-                    Patch patch = new Patch();
+                    Patch patch = new();
                     bool empty = true;
                     patch.start1 = start1 - precontext.Length;
                     patch.start2 = start2 - precontext.Length;
@@ -2509,17 +2456,11 @@ namespace DiffMatchPatch
                     precontext = precontext.Substring(Math.Max(0,
                         precontext.Length - this.Patch_Margin));
 
-                    string postcontext = null;
+                    string postcontext = diff_text1(bigpatch.diffs).Length > Patch_Margin
+                        ? diff_text1(bigpatch.diffs)
+                            .Substring(0, Patch_Margin)
+                        : diff_text1(bigpatch.diffs);
                     // Append the end context for this patch.
-                    if (diff_text1(bigpatch.diffs).Length > Patch_Margin)
-                    {
-                        postcontext = diff_text1(bigpatch.diffs)
-                            .Substring(0, Patch_Margin);
-                    }
-                    else
-                    {
-                        postcontext = diff_text1(bigpatch.diffs);
-                    }
 
                     if (postcontext.Length != 0)
                     {
@@ -2551,7 +2492,7 @@ namespace DiffMatchPatch
          */
         public string patch_toText(List<Patch> patches)
         {
-            StringBuilder text = new StringBuilder();
+            StringBuilder text = new();
             foreach (Patch aPatch in patches)
             {
                 text.Append(aPatch);
@@ -2568,7 +2509,7 @@ namespace DiffMatchPatch
          */
         public List<Patch> patch_fromText(string textline)
         {
-            List<Patch> patches = new List<Patch>();
+            List<Patch> patches = new();
             if (textline.Length == 0)
             {
                 return patches;
@@ -2577,7 +2518,7 @@ namespace DiffMatchPatch
             int textPointer = 0;
             Patch patch;
             Regex patchHeader
-                = new Regex("^@@ -(\\d+),?(\\d*) \\+(\\d+),?(\\d*) @@$");
+                = new("^@@ -(\\d+),?(\\d*) \\+(\\d+),?(\\d*) @@$");
             Match m;
             char sign;
             string line;

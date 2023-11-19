@@ -10,7 +10,7 @@ namespace System.Text.Json.JsonDiffPatch
         // Keep as fields to avoid copy
         public JsonNumber NumberValue;
         public JsonString StringValue;
-        
+
         public JsonValueWrapper(JsonValue value)
         {
             Value = value;
@@ -30,7 +30,7 @@ namespace System.Text.Json.JsonDiffPatch
                 ValueKind = booleanValue ? JsonValueKind.True : JsonValueKind.False;
             }
         }
-        
+
         public JsonValueKind ValueKind { get; }
         public JsonValue Value { get; }
 
@@ -42,12 +42,7 @@ namespace System.Text.Json.JsonDiffPatch
                 var hash1 = valueComparer.GetHashCode(Value);
                 var hash2 = valueComparer.GetHashCode(another.Value);
 
-                if (hash1 != hash2)
-                {
-                    return false;
-                }
-
-                return valueComparer.Equals(Value, another.Value);
+                return hash1 != hash2 ? false : valueComparer.Equals(Value, another.Value);
             }
 
             return DeepEquals(ref another, comparerOptions.JsonElementComparison);
@@ -59,7 +54,7 @@ namespace System.Text.Json.JsonDiffPatch
             {
                 return true;
             }
-            
+
             if (ValueKind != another.ValueKind)
             {
                 return false;
@@ -104,31 +99,16 @@ namespace System.Text.Json.JsonDiffPatch
 
         public int CompareTo(ref JsonValueWrapper another)
         {
-            if (ValueKind != another.ValueKind)
+            return ValueKind != another.ValueKind
+                ? -((int)ValueKind - (int)another.ValueKind)
+                : ValueKind switch
             {
-                return -((int) ValueKind - (int) another.ValueKind);
-            }
-
-            switch (ValueKind)
-            {
-                case JsonValueKind.Number:
-                    return NumberValue.CompareTo(ref another.NumberValue);
-
-                case JsonValueKind.String:
-                    return StringValue.CompareTo(ref another.StringValue);
-
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    return 0;
-                
-                case JsonValueKind.Null:
-                case JsonValueKind.Undefined:
-                case JsonValueKind.Object:
-                case JsonValueKind.Array:
-                default:
-                    throw new ArgumentOutOfRangeException(
-                        nameof(ValueKind), $"Unexpected value kind {ValueKind:G}");
-            }
+                JsonValueKind.Number => NumberValue.CompareTo(ref another.NumberValue),
+                JsonValueKind.String => StringValue.CompareTo(ref another.StringValue),
+                JsonValueKind.True or JsonValueKind.False => 0,
+                _ => throw new ArgumentOutOfRangeException(
+                                        nameof(ValueKind), $"Unexpected value kind {ValueKind:G}"),
+            };
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Nodes;
+
 using NUnit.Framework;
 
 namespace System.Text.Json.JsonDiffPatch.Nunit
@@ -8,7 +9,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
     /// </summary>
     public static class JsonAssert
     {
-        private static readonly JsonSerializerOptions SerializerOptions = new() {WriteIndented = true};
+        private static readonly JsonSerializerOptions SerializerOptions = new() { WriteIndented = true };
 
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
@@ -179,7 +180,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         /// <param name="output">Whether to print diff result.</param>
         public static void JsonAreEqual(this Assert assert, string? expected, string? actual, bool output)
             => AreEqual(expected, actual, output);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -191,7 +192,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreEqual(this Assert assert, string? expected, string? actual,
             JsonDiffOptions diffOptions)
             => AreEqual(expected, actual, diffOptions);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -204,7 +205,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreEqual(this Assert assert, string? expected, string? actual,
             JsonDiffOptions diffOptions, bool output)
             => AreEqual(expected, actual, diffOptions, output);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -230,7 +231,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
             JsonDiffOptions diffOptions,
             Func<JsonNode, string> outputFormatter)
             => AreEqual(expected, actual, diffOptions, outputFormatter);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -242,7 +243,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreEqual<T>(this Assert assert, T? expected, T? actual)
             where T : JsonNode
             => AreEqual(expected, actual);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -255,7 +256,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreEqual<T>(this Assert assert, T? expected, T? actual, bool output)
             where T : JsonNode
             => AreEqual(expected, actual, output);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -268,7 +269,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreEqual<T>(this Assert assert, T? expected, T? actual, JsonDiffOptions diffOptions)
             where T : JsonNode
             => AreEqual(expected, actual, diffOptions);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -283,7 +284,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
             JsonDiffOptions diffOptions, bool output)
             where T : JsonNode
             => AreEqual(expected, actual, diffOptions, output);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -378,7 +379,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void AreNotEqual(string? expected, string? actual, JsonDiffOptions diffOptions)
             => AreNotEqual(expected is null ? null : JsonNode.Parse(expected),
                 actual is null ? null : JsonNode.Parse(actual), diffOptions);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -389,7 +390,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void AreNotEqual<T>(T? expected, T? actual)
             where T : JsonNode
             => HandleAreNotEqual(expected, actual, null);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -402,7 +403,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
             where T : JsonNode
             => HandleAreNotEqual(expected, actual,
                 diffOptions ?? throw new ArgumentNullException(nameof(diffOptions)));
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -412,7 +413,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         /// <param name="actual">The actual value.</param>
         public static void JsonAreNotEqual(this Assert assert, string? expected, string? actual)
             => AreNotEqual(expected, actual);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -424,7 +425,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreNotEqual(this Assert assert, string? expected, string? actual,
             JsonDiffOptions diffOptions)
             => AreNotEqual(expected, actual, diffOptions);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.
@@ -436,7 +437,7 @@ namespace System.Text.Json.JsonDiffPatch.Nunit
         public static void JsonAreNotEqual<T>(this Assert assert, T? expected, T? actual)
             where T : JsonNode
             => AreNotEqual(expected, actual);
-        
+
         /// <summary>
         /// Tests whether two JSON objects are not equal. Note that when comparing the specified objects,
         /// the ordering of members in the objects is not significant.

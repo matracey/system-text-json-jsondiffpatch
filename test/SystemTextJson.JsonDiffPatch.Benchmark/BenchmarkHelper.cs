@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.JsonDiffPatch.Diffs;
 using System.Text.Json.Nodes;
+
 using JsonDiffPatchDotNet;
 
 namespace SystemTextJson.JsonDiffPatch.Benchmark
@@ -30,13 +31,8 @@ namespace SystemTextJson.JsonDiffPatch.Benchmark
         // https://github.com/wbish/jsondiffpatch.net/blob/master/Src/JsonDiffPatchDotNet/Lcs.cs#L51
         private static bool JsonNetArrayItemMatch(ref ArrayItemMatchContext context)
         {
-            if (context.Left is JsonObject && context.Right is JsonObject ||
-                context.Left is JsonArray && context.Right is JsonArray)
-            {
-                return true;
-            }
-
-            return false;
+            return context.Left is JsonObject && context.Right is JsonObject ||
+                context.Left is JsonArray && context.Right is JsonArray;
         }
     }
 }

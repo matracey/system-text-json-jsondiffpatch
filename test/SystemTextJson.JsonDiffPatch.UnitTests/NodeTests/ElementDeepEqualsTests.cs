@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
@@ -120,7 +121,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests.NodeTests
         {
             Assert.Equal(expected, json1.DeepEquals(json2));
         }
-        
+
         [Theory]
         [MemberData(nameof(NodeTestData.ElementSemanticEqual), MemberType = typeof(NodeTestData))]
         public void Value_Semantic(JsonValue json1, JsonValue json2, bool expected)

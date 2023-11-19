@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.JsonDiffPatch;
+
 using Xunit;
 
 namespace SystemTextJson.JsonDiffPatch.UnitTests
@@ -17,7 +18,7 @@ namespace SystemTextJson.JsonDiffPatch.UnitTests
         public void DefaultDeepEqualsComparison_ComparerOptions()
         {
             JsonDiffPatcher.DefaultComparison = JsonElementComparison.Semantic;
-            
+
             JsonComparerOptions comparerOptions = default;
 
             Assert.Equal(JsonDiffPatcher.DefaultComparison, comparerOptions.JsonElementComparison);

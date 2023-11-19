@@ -9,8 +9,8 @@ namespace System.Text.Json.JsonDiffPatch
         // Object diff:
         // https://github.com/benjamine/jsondiffpatch/blob/master/docs/deltas.md#object-with-inner-changes
         private static void DiffObject(
-            ref JsonDiffDelta delta, 
-            JsonObject left, 
+            ref JsonDiffDelta delta,
+            JsonObject left,
             JsonObject right,
             JsonDiffOptions? options)
         {

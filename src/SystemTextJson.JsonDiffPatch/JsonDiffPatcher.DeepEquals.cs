@@ -55,12 +55,9 @@ namespace System.Text.Json.JsonDiffPatch
                 return true;
             }
 
-            if (left is null || right is null)
-            {
-                return false;
-            }
-
-            return left switch
+            return left is null || right is null
+                ? false
+                : left switch
             {
                 JsonValue val1 when right is JsonValue val2 => ValueEquals(val1, val2, comparerOptions),
                 JsonObject obj1 when right is JsonObject obj2 => ObjectEquals(obj1, obj2, comparerOptions),
@@ -83,12 +80,7 @@ namespace System.Text.Json.JsonDiffPatch
                 return true;
             }
 
-            if (left is null || right is null)
-            {
-                return false;
-            }
-
-            return left.RootElement.DeepEquals(right.RootElement, elementComparison);
+            return left is null || right is null ? false : left.RootElement.DeepEquals(right.RootElement, elementComparison);
         }
 
         /// <summary>
@@ -124,13 +116,13 @@ namespace System.Text.Json.JsonDiffPatch
                     return elementComparison is JsonElementComparison.RawText
                         ? leftString.ValueEquals(ref rightString)
                         : leftString.Equals(ref rightString);
-                
+
                 case JsonValueKind.Object:
                     return ObjectEquals(left, right, elementComparison.Value);
 
                 case JsonValueKind.Array:
                     return ArrayEquals(left, right, elementComparison.Value);
-                
+
                 case JsonValueKind.True:
                 case JsonValueKind.False:
                 case JsonValueKind.Null:
@@ -219,10 +211,7 @@ namespace System.Text.Json.JsonDiffPatch
 
                 foreach (var property in element.EnumerateObject())
                 {
-                    if (properties is null)
-                    {
-                        properties = new Dictionary<string, JsonProperty>();
-                    }
+                    properties ??= new Dictionary<string, JsonProperty>();
 
                     properties[property.Name] = property;
                 }
@@ -286,12 +275,7 @@ namespace System.Text.Json.JsonDiffPatch
                 var hash1 = valueComparer.GetHashCode(x);
                 var hash2 = valueComparer.GetHashCode(y);
 
-                if (hash1 != hash2)
-                {
-                    return false;
-                }
-
-                return valueComparer.Equals(x, y);
+                return hash1 != hash2 ? false : valueComparer.Equals(x, y);
             }
 
             var wrapperX = new JsonValueWrapper(x);
